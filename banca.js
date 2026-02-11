@@ -10,7 +10,7 @@ let accounts = [
 },
 {
     username: "utente2",
-    pin: "22222",
+    pin: "2222",
     saldo: 100,
     movimenti:[]
 },
