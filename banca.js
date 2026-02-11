@@ -4,13 +4,13 @@ while (true) {
     for(key in accounts) {
         if (user === accounts[key].nome && pin === accounts[key].pin) {
           while (true) {
-                let menu = parseint(prompt`Ciao ${user} cosa vuoi fare?/n
+                let menu = parseint(prompt(`Ciao ${user} cosa vuoi fare?/n
             1. Visualizza il saldo /n
             2. Effettua prelievo /n
             3. Effettua bonifico /n
             4. Visualizza saldo attuale /n
             5. Visualizza storico movimenti /n
-            6. Esci`)
+            6. Esci`))
                 if (menu === 1) {
                     mostrasaldo();
                 } else if (menu === 2) {
