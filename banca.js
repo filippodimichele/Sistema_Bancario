@@ -64,5 +64,126 @@ while (true) {
 
         alert("Errore, riprova!!!")
     }
+
+    //  CONTROLLO ADMIN 
+    if (currentUser.username === "admin") {
+        adminMenu();
+        continue; // torna al login dopo uscita admin
+    }
 }
 
+//  MENU ADMIN 
+function adminMenu() {
+
+    while (true) {
+
+        let scelta = parseInt(prompt(`MENU ADMIN\n
+1. Lista conti
+2. Totale soldi banca
+3. Crea utente
+4. Esci`));
+
+        if (scelta === 1) {
+
+            console.log("=== LISTA CONTI ===");
+            for (let acc of accounts) {
+                console.log(`${acc.username}: €${acc.saldo.toFixed(2)}`);
+            }
+
+        } else if (scelta === 2) {
+
+            let totale = 0;
+
+            for (let acc of accounts) {
+                totale += acc.saldo;
+            }
+
+            alert(`Totale banca: €${totale.toFixed(2)}`);
+
+        } else if (scelta === 3) {
+
+            let nuovoUser = prompt("Nuovo username:");
+            let nuovoPin = prompt("Nuovo PIN:");
+
+            if (!nuovoUser || !nuovoPin) {
+                alert("Dati non validi!");
+                continue;
+            }
+
+            accounts.push({
+                username: nuovoUser,
+                pin: nuovoPin,
+                saldo: 0,
+                movimenti: []
+            });
+
+            alert("Utente creato!");
+
+        } else if (scelta === 4) {
+            alert("Uscita admin...");
+            break;
+        }
+    }
+}
+
+
+//  FUNZIONE BONIFICO 
+function eseguiBonifico(utenteCorrente) {
+
+    let usernameDestinatario = prompt("Inserisci username destinatario:");
+    let destinatario = null;
+
+    for (let account of accounts) {
+        if (account.username === usernameDestinatario) {
+            destinatario = account;
+            break;
+        }
+    }
+
+    if (destinatario === null) {
+        alert("Errore: Utente non trovato.");
+        return;
+    }
+
+    if (destinatario.username === utenteCorrente.username) {
+        alert("Errore: Non puoi fare un bonifico a te stesso.");
+        return;
+    }
+
+    let input = prompt("Inserisci importo:");
+
+    if (input === null) return;
+
+    let importo = Number(input);
+
+    if (isNaN(importo) || importo <= 0) {
+        alert("Errore: Importo non valido.");
+        return;
+    }
+
+    if (importo > utenteCorrente.saldo) {
+        alert("Errore: Saldo insufficiente.");
+        return;
+    }
+
+    // aggiorna saldi
+    utenteCorrente.saldo -= importo;
+    destinatario.saldo += importo;
+
+    // registra movimenti
+    utenteCorrente.movimenti.push({
+        data: new Date().toLocaleString(),
+        tipo: "Bonifico inviato",
+        importo: -importo,
+        destinatario: destinatario.username
+    });
+
+    destinatario.movimenti.push({
+        data: new Date().toLocaleString(),
+        tipo: "Bonifico ricevuto",
+        importo: importo,
+        mittente: utenteCorrente.username
+    });
+
+    alert("Bonifico effettuato con successo!");
+}
