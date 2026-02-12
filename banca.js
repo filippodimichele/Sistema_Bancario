@@ -4,13 +4,13 @@
 let accounts = [
     {
     username:"utente1", //nome utente per il login
-    pin: "1212",        //pin personale dell'utente
+    pin: "12121",        //pin personale dell'utente
     saldo: 1000,        //saldo iniziale del conto
     movimenti: [],      //storico delle operazioni
 },
 {
     username: "utente2",
-    pin: "2222",
+    pin: "22222",
     saldo: 100,
     movimenti:[]
 },
@@ -22,22 +22,25 @@ let accounts = [
 }
 ];
 
-
-
-
 while (true) {
-    let user = prompt("Inserisci username")
-    let pin = prompt("Inserisci PIN")
+    let user = prompt("Inserisci username");
+    let pin = prompt("Inserisci PIN");
+    let currentUser = null;
+
+
     for(key in accounts) {
-        if (user === accounts[key].nome && pin === accounts[key].pin) {
-          while (true) {
-                let menu = parseint(prompt(`Ciao ${user} cosa vuoi fare?/n
-            1. Visualizza il saldo /n
-            2. Effettua prelievo /n
-            3. Effettua bonifico /n
-            4. Visualizza saldo attuale /n
-            5. Visualizza storico movimenti /n
-            6. Esci`))
+        if (user === accounts[key].username && pin === accounts[key].pin) {
+          currentUser = accounts[key];
+
+            while (true) {
+                let menu = parseInt(prompt(`Ciao ${user} cosa vuoi fare?\n
+            1. Visualizza il saldo \n
+            2. Effettua prelievo \n
+            3. Effettua bonifico \n
+            4. Visualizza saldo attuale \n
+            5. Visualizza storico movimenti \n
+            6. Esci`));
+
                 if (menu === 1) {
                     mostrasaldo();
                 } else if (menu === 2) {
@@ -53,8 +56,14 @@ while (true) {
                     break
                 }
             }
-        } else {
-            alert("Errore, riprova!!!")
+            break;
         }
     }
-}
+
+    if (currentUser === null){
+
+        alert("Errore, riprova!!!")
+    }
+        }
+    
+
