@@ -22,6 +22,43 @@ let accounts = [
 ];
 
 
+function prelievo() { // funzione per il prelievo
+    let importo = parseFloat(prompt("Quanto vuoi prelevare?"));
+    if (importo > saldo) {
+        alert("Saldo insufficiente!");
+    } else {
+        alert(`Operazione riuscita! Hai prelevato ${importo}€. Nuovo saldo: ${saldo}€`)
+        return saldo -= importo
+    }
+}
+
+function versamento() { // funzione per il versamento
+    let importo = parseFloat(prompt("Quanto vuoi versare?"));
+    if (importo <= 0) {
+        alert("Importo non valido!");
+    } else {
+        alert(`Operazione riuscita! Hai versato ${importo}€. Nuovo saldo: ${saldo}€`);
+        return saldo + importo;
+    }
+}
+
+function saldoAttuale() { // funzione per visualizzare il saldo attuale
+    alert(`Saldo attualmente disponibile: ${saldo.toFixed(2)}`)
+}
+
+function storicoMovimenti(data, tipo, importo) { // funzione per registrare movimenti e visualizzare lo storico
+    tipo = prompt("Inserisci tipo di movimento da registrare: ");
+    importo = prompt("Inserisci importo del movimento da registrare: ")
+    const nuovoMovimento = {
+        data: new Date().toLocaleString('it-IT'),
+        tipo: tipo,
+        importo: importo
+    }
+    movimenti.push(nuovoMovimento)
+    alert(`Storico movimenti: ${movimenti}`)
+}
+
+
 while (true) {
     let user = prompt("Inserisci username");
     let pin = prompt("Inserisci PIN");
