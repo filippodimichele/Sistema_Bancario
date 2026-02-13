@@ -50,7 +50,7 @@ function prelievo(user) { // funzione per il prelievo
 function versamento(user) { // funzione per il versamento
     const importo = parseFloat(prompt("Quanto vuoi versare?"));
     if (importo <= 0) {
-        alert("Importo non valido!");
+        alert("Importo non valido! Inserisci un numero positivo.");
     }
     user.saldo += importo;
 
