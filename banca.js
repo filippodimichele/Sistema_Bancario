@@ -30,8 +30,9 @@ function prelievo(user) { // funzione per il prelievo
     }
 
     const importo = parseFloat(input);
-    if (importo <= 0) {
-        alert("Importo non valido! Inserisci un numero positivo.");
+
+    if (isNaN(importo) || importo <= 0) {
+        alert("Importo non valido!");
         return;
     }
 
@@ -62,8 +63,8 @@ function versamento(user) { // funzione per il versamento
     }
     const importo = parseFloat(input);
     
-    if (importo <= 0) {
-        alert("Importo non valido! Inserisci un numero positivo.");
+    if (isNaN(importo) || importo <= 0) {
+        alert("Importo non valido!");
         return;
     }
     user.saldo += importo;
