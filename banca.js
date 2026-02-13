@@ -22,40 +22,61 @@ let accounts = [
 ];
 
 
-function prelievo() { // funzione per il prelievo
-    let importo = parseFloat(prompt("Quanto vuoi prelevare?"));
-    if (importo > saldo) {
+function prelievo(user) { // funzione per il prelievo
+    const importo = parseFloat(prompt("Quanto vuoi prelevare?"));
+    if (importo === null) {
+        alert("Operazione annullata.");
+        return;
+    }
+
+    if (importo > user.saldo) {
         alert("Saldo insufficiente!");
-    } else {
-        alert(`Operazione riuscita! Hai prelevato ${importo}€. Nuovo saldo: ${saldo}€`)
-        return saldo -= importo
+        return;
     }
-}
 
-function versamento() { // funzione per il versamento
-    let importo = parseFloat(prompt("Quanto vuoi versare?"));
-    if (importo <= 0) {
-        alert("Importo non valido!");
-    } else {
-        alert(`Operazione riuscita! Hai versato ${importo}€. Nuovo saldo: ${saldo}€`);
-        return saldo + importo;
-    }
-}
+    user.saldo -= importo;
 
-function saldoAttuale() { // funzione per visualizzare il saldo attuale
-    alert(`Saldo attualmente disponibile: ${saldo.toFixed(2)}`)
-}
-
-function storicoMovimenti(data, tipo, importo) { // funzione per registrare movimenti e visualizzare lo storico
-    tipo = prompt("Inserisci tipo di movimento da registrare: ");
-    importo = prompt("Inserisci importo del movimento da registrare: ")
     const nuovoMovimento = {
         data: new Date().toLocaleString('it-IT'),
-        tipo: tipo,
+        tipo: "prelievo",
         importo: importo
+    };
+    user.movimenti.push(nuovoMovimento)
+    alert(`Operazione riuscita!\nHai prelevato ${importo}€. \nNuovo saldo: ${user.saldo}€`)
+
+
+}
+
+function versamento(user) { // funzione per il versamento
+    const importo = parseFloat(prompt("Quanto vuoi versare?"));
+    if (importo <= 0) {
+        alert("Importo non valido!");
     }
-    movimenti.push(nuovoMovimento)
-    alert(`Storico movimenti: ${movimenti}`)
+    user.saldo += importo;
+
+    const nuovoMovimento = {
+        data: new Date().toLocaleString('it-IT'),
+        tipo: "versamento",
+        importo: importo
+    };
+    user.movimenti.push(nuovoMovimento)
+    alert(`Operazione riuscita!\nHai versato ${importo}€.\nNuovo saldo: ${user.saldo}€`);
+
+}
+
+function saldoAttuale(user) { // funzione per visualizzare il saldo attuale
+    alert(`Saldo attualmente disponibile: ${user.saldo.toFixed(2)}`)
+}
+
+function storicoMovimenti(user) { // funzione per registrare movimenti e visualizzare lo storico
+    if (user.movimenti.lenght === 0) {
+        alert("Nessun movimento registrato.")
+        return;
+    }
+
+    for (let i = 0; i < user.movimenti.lenght; i++) {
+        alert(user.movimenti[i])
+    }
 }
 
 
@@ -79,15 +100,15 @@ while (true) {
             6. Esci`));
 
                 if (menu === 1) {
-                    versamento();
+                    versamento(currentUser);
                 } else if (menu === 2) {
-                    prelievo();
+                    prelievo(currentUser);
                 } else if (menu === 3) {
                     effettuabonifico();
                 } else if (menu === 4) {
-                    saldoAttuale();
+                    saldoAttuale(currentUser);
                 } else if (menu === 5) {
-                    storicoMovimenti();
+                    storicoMovimenti(currentUser);
                 } else {
                     alert(`Arrivederci ${user}`);
                     break
