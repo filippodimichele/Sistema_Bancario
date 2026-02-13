@@ -65,7 +65,7 @@ function versamento(user) { // funzione per il versamento
 }
 
 function saldoAttuale(user) { // funzione per visualizzare il saldo attuale
-    alert(`Saldo attualmente disponibile: ${user.saldo.toFixed(2)}`)
+    alert(`Saldo attualmente disponibile: ${user.saldo.toFixed(2)}€`)
 }
 
 function storicoMovimenti(user) { // funzione per registrare movimenti e visualizzare lo storico
