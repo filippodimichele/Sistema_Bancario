@@ -29,6 +29,12 @@ function prelievo(user) { // funzione per il prelievo
         return;
     }
 
+    if (importo <= 0) {
+        alert("Importo non valido! Inserisci un numero positivo.");
+        return;
+    }
+
+
     if (importo > user.saldo) {
         alert("Saldo insufficiente!");
         return;
@@ -49,8 +55,14 @@ function prelievo(user) { // funzione per il prelievo
 
 function versamento(user) { // funzione per il versamento
     const importo = parseFloat(prompt("Quanto vuoi versare?"));
+    if (importo === null) {
+        alert("Operazione annullata.");
+        return;
+    }
+    
     if (importo <= 0) {
         alert("Importo non valido! Inserisci un numero positivo.");
+        return;
     }
     user.saldo += importo;
 
