@@ -23,12 +23,13 @@ let accounts = [
 
 
 function prelievo(user) { // funzione per il prelievo
-    const importo = parseFloat(prompt("Quanto vuoi prelevare?"));
-    if (importo === null) {
+    const input = prompt("Quanto vuoi prelevare?");
+    if (input === null) {
         alert("Operazione annullata.");
         return;
     }
 
+    const importo = parseFloat(input);
     if (importo <= 0) {
         alert("Importo non valido! Inserisci un numero positivo.");
         return;
@@ -54,11 +55,12 @@ function prelievo(user) { // funzione per il prelievo
 }
 
 function versamento(user) { // funzione per il versamento
-    const importo = parseFloat(prompt("Quanto vuoi versare?"));
-    if (importo === null) {
+    const input = prompt("Quanto vuoi versare?");
+    if (input === null) {
         alert("Operazione annullata.");
         return;
     }
+    const importo = parseFloat(input);
     
     if (importo <= 0) {
         alert("Importo non valido! Inserisci un numero positivo.");
