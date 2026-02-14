@@ -89,9 +89,7 @@ function storicoMovimenti(user) { // funzione per registrare movimenti e visuali
         return;
     }
 
-    for (let i = 0; i < user.movimenti.length; i++) {
-        alert((JSON.stringify(user.movimenti, null, 2))) // JSON.stringify --> per stampare gli oggetti contenuti in movimenti , null serve per mettere tutto l'oggetto senza saltare, e 2 serve per l'indentazione
-    }
+    alert((JSON.stringify(user.movimenti, null, 2))) // JSON.stringify --> per stampare gli oggetti contenuti in movimenti , null serve per mettere tutto l'oggetto senza saltare, e 2 serve per l'indentazione
 }
 
 
