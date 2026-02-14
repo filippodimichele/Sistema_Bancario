@@ -21,7 +21,6 @@ let accounts = [
     }
 ];
 
-
 function prelievo(user) { // funzione per il prelievo
     const input = prompt("Quanto vuoi prelevare?");
     if (input === null) {
@@ -35,7 +34,6 @@ function prelievo(user) { // funzione per il prelievo
         alert("Importo non valido!");
         return;
     }
-
 
     if (importo > user.saldo) {
         alert("Saldo insufficiente!");
@@ -51,8 +49,6 @@ function prelievo(user) { // funzione per il prelievo
     };
     user.movimenti.push(nuovoMovimento)
     alert(`Operazione riuscita!\nHai prelevato ${importo}€. \nNuovo saldo: ${user.saldo}€`)
-
-
 }
 
 function versamento(user) { // funzione per il versamento
@@ -76,7 +72,6 @@ function versamento(user) { // funzione per il versamento
     };
     user.movimenti.push(nuovoMovimento)
     alert(`Operazione riuscita!\nHai versato ${importo}€.\nNuovo saldo: ${user.saldo}€`);
-
 }
 
 function saldoAttuale(user) { // funzione per visualizzare il saldo attuale
@@ -89,19 +84,22 @@ function storicoMovimenti(user) { // funzione per registrare movimenti e visuali
         return;
     }
 
-    alert((JSON.stringify(user.movimenti, null, 2))) // JSON.stringify --> per stampare gli oggetti contenuti in movimenti , null serve per mettere tutto l'oggetto senza saltare, e 2 serve per l'indentazione
+    alert((JSON.stringify(user.movimenti, null, 2)))
 }
-
 
 while (true) {
     let user = prompt("Inserisci username");
     let pin = prompt("Inserisci PIN");
     let currentUser = null;
 
-
     for (key in accounts) {
         if (user === accounts[key].username && pin === accounts[key].pin) {
             currentUser = accounts[key];
+
+            if (currentUser.username === "admin") {
+                adminMenu();
+                break;
+            }
 
             while (true) {
                 let menu = parseInt(prompt(`Ciao ${user} cosa vuoi fare?\n
@@ -117,7 +115,7 @@ while (true) {
                 } else if (menu === 2) {
                     prelievo(currentUser);
                 } else if (menu === 3) {
-                    effettuabonifico();
+                    eseguiBonifico(currentUser);
                 } else if (menu === 4) {
                     saldoAttuale(currentUser);
                 } else if (menu === 5) {
@@ -132,14 +130,7 @@ while (true) {
     }
 
     if (currentUser === null) {
-
         alert("Errore, riprova!!!")
-    }
-
-    //  CONTROLLO ADMIN 
-    if (currentUser.username === "admin") {
-        adminMenu();
-        continue; // torna al login dopo uscita admin
     }
 }
 
@@ -197,7 +188,6 @@ function adminMenu() {
     }
 }
 
-
 //  FUNZIONE BONIFICO 
 function eseguiBonifico(utenteCorrente) {
 
@@ -237,11 +227,9 @@ function eseguiBonifico(utenteCorrente) {
         return;
     }
 
-    // aggiorna saldi
     utenteCorrente.saldo -= importo;
     destinatario.saldo += importo;
 
-    // registra movimenti
     utenteCorrente.movimenti.push({
         data: new Date().toLocaleString(),
         tipo: "Bonifico inviato",
