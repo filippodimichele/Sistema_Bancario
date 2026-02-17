@@ -147,10 +147,13 @@ function adminMenu() {
 
         if (scelta === 1) {
 
-            console.log("=== LISTA CONTI ===");
+            // === LISTA CONTI ===
+            let lista = "=== LISTA CONTI ===\n";
             for (let acc of accounts) {
-                console.log(`${acc.username}: €${acc.saldo.toFixed(2)}`);
+                lista += `${acc.username}: €${acc.saldo.toFixed(2)}\n`;
             }
+            alert(lista);
+          
 
         } else if (scelta === 2) {
 
