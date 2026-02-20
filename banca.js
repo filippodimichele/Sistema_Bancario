@@ -126,7 +126,7 @@ while (true) {
                     saldoAttuale(currentUser);
                 } else if (menu === 5) {
                     storicoMovimenti(currentUser);
-                } else if (menu === 6) {            //modifica per debug
+                } else if (menu === 6) {             //modifica per debug
                     alert(`Arrivederci ${user}`);
                     break;
                 } else{
