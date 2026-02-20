@@ -84,7 +84,13 @@ function storicoMovimenti(user) { // funzione per registrare movimenti e visuali
         return;
     }
 
-    alert((JSON.stringify(user.movimenti, null, 2)))     // JSON.stringify --> per stampare gli oggetti contenuti in movimenti , null serve per mettere tutto l'oggetto senza saltare, e 2 serve per l'indentazione
+    let testo = "";  //modifica per debug
+    for( let mov of user.movimenti){
+        testo += `${mov.data} - ${mov.tipo}: ${mov.importo}€\n`;
+    }
+    alert(testo);
+    
+    
 }
 
 while (true) {
@@ -92,7 +98,7 @@ while (true) {
     let pin = prompt("Inserisci PIN");
     let currentUser = null;
 
-    for (key in accounts) {
+    for (let key in accounts) { //inserimento let per variabile
         if (user === accounts[key].username && pin === accounts[key].pin) {
             currentUser = accounts[key];
 
@@ -120,9 +126,12 @@ while (true) {
                     saldoAttuale(currentUser);
                 } else if (menu === 5) {
                     storicoMovimenti(currentUser);
-                } else {
+                } else if (menu === 6) {            //modifica per debug
                     alert(`Arrivederci ${user}`);
-                    break
+                    break;
+                } else{
+                    alert("Scelta non valida");
+                    continue;
                 }
             }
             break;
@@ -175,6 +184,13 @@ function adminMenu() {
                 continue;
             }
 
+            for (let acc of accounts){
+                if(acc.username === nuovoUser || acc.pin === nuovoPin){   // modifica per debug
+                    alert("Errore: Username o PIN già esistenti!");
+                    return
+                }
+            }
+
             accounts.push({
                 username: nuovoUser,
                 pin: nuovoPin,
@@ -211,6 +227,11 @@ function eseguiBonifico(utenteCorrente) {
 
     if (destinatario.username === utenteCorrente.username) {
         alert("Errore: Non puoi fare un bonifico a te stesso.");
+        return;
+    }
+
+    if (destinatario.username === "admin"){
+        alert("Errore: Non puoi fare un bonifico all'admin!"); //nuovo if per debug
         return;
     }
 
